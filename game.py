@@ -9,14 +9,15 @@ import numpy as np
 
 class Settings:
     def __init__(self):
+        #the width and height of the game has been set 
         self.width = 28
         self.height = 28
-        #Change !
+        #Change length of screen from 15 to 30
         self.rect_len = 30
 
 class Snake:
     def __init__(self):
-        
+        #images related to snake's body part has loaded 
         self.image_up = pygame.image.load('images/head_up.bmp')
         self.image_down = pygame.image.load('images/head_down.bmp')
         self.image_left = pygame.image.load('images/head_left.bmp')
@@ -28,15 +29,16 @@ class Snake:
         self.tail_right = pygame.image.load('images/tail_right.bmp')
             
         self.image_body = pygame.image.load('images/body.bmp')
-
+        # the game starts with snake facing right
         self.facing = "right"
         self.initialize()
 
     def initialize(self):
+    #sets position of snake during the start of the game 
         self.position = [15,15]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
-
+    #defines how each part of the snake's body is displayed
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
         
@@ -52,17 +54,16 @@ class Snake:
             
     def blit_tail(self, x, y, screen):
         tail_direction = [self.segments[-2][i] - self.segments[-1][i] for i in range(2)]
-        
         if tail_direction == [0, -1]:
             screen.blit(self.tail_up, (x, y))
         elif tail_direction == [0, 1]:
-            screen.blit(self.tail_down, (x, y))  
+            screen.blit(self.tail_down, (x, y)) 
         elif tail_direction == [-1, 0]:
             screen.blit(self.tail_left, (x, y))  
         else:
             screen.blit(self.tail_right, (x, y))  
-    
     def blit(self, rect_len, screen):
+        #displays the snake on screen 
         self.blit_head(self.segments[0][0]*rect_len, self.segments[0][1]*rect_len, screen)                
         for position in self.segments[1:-1]:
             self.blit_body(position[0]*rect_len, position[1]*rect_len, screen)
@@ -70,6 +71,7 @@ class Snake:
             
     
     def update(self):
+        #changes position of snake depending on the facing  
         if self.facing == 'right':
             self.position[0] += 1
         if self.facing == 'left':
@@ -82,13 +84,14 @@ class Snake:
         
 class Strawberry():
     def __init__(self, settings):
-        self.settings = settings
-        
+        #declare all attributes of class
+        self.settings = settings 
         self.style = str(random.randint(1, 8))
         self.image = pygame.image.load('images/food' + str(self.style) + '.bmp')        
         self.initialize()
-        
+       
     def random_pos(self, snake):
+        #random position of berry is found and assigned  
         self.style = str(random.randint(1, 8))
         self.image = pygame.image.load('images/food' + str(self.style) + '.bmp')                
         
@@ -100,8 +103,9 @@ class Strawberry():
         
         if self.position in snake.segments:
             self.random_pos(snake)
-
+    
     def blit(self, screen):
+        #shows the berry on the screen
         screen.blit(self.image, [p * self.settings.rect_len for p in self.position])
    
     def initialize(self):
@@ -109,9 +113,8 @@ class Strawberry():
       
         
 class Game:
-    """
-    """
     def __init__(self):
+        #sets the game attributes 
         self.settings = Settings()
         self.snake = Snake()
         self.strawberry = Strawberry(self.settings)
@@ -121,10 +124,12 @@ class Game:
                           3 : 'right'}       
         
     def restart_game(self):
+        #if game is restared the snake and strawberry classes are reset
         self.snake.initialize()
         self.strawberry.initialize()
 
-    def current_state(self):         
+    def current_state(self):
+        #
         state = np.zeros((self.settings.width+2, self.settings.height+2, 2))
         expand = [[0, 1], [0, -1], [-1, 0], [1, 0], [0, 2], [0, -2], [-2, 0], [2, 0]]
         
@@ -139,12 +144,13 @@ class Game:
         return state
     
     def direction_to_int(self, direction):
+        #changes key values to element in self.move_dict dictionary 
         direction_dict = {value : key for key,value in self.move_dict.items()}
         return direction_dict[direction]
         
     def do_move(self, move):
+        #schanges facing of snake based on the direction the user has inputed
         move_dict = self.move_dict
-        
         change_direction = move_dict[move]
         
         if change_direction == 'right' and not self.snake.facing == 'left':
@@ -161,11 +167,12 @@ class Game:
         if self.snake.position == self.strawberry.position and self.strawberry.image!="images/food4.bmp":
             self.strawberry.random_pos(self.snake)
             reward = 1
-            #Change 2
+            #Change 2: the score is set to increase by 10 each time the snake eats the berry
             self.snake.score += 10
         
 
         else:
+
             self.snake.segments.pop()
             reward = 0
                 
@@ -175,6 +182,7 @@ class Game:
         return reward
     
     def game_end(self):
+        #conditions for the game to end and returns end value which changes if any of the conditions are met
         end = False
         if self.snake.position[0] >= self.settings.width or self.snake.position[0] < 0:
             end = True
@@ -186,8 +194,11 @@ class Game:
         return end
     
     def blit_score(self, color, screen):
-        font = pygame.font.SysFont(None, 25)
+        #shows the score(text) on the screen with the corbel font and 25 size.
+        font = pygame.font.SysFont("Corbel", 25)
+        #change 3: the font form None to Corbel
         text = font.render('Score: ' + str(self.snake.score), True, color)
-        #cnagw
+        #Change 4:  
         screen.blit(text, (400, 10))
+
 

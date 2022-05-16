@@ -11,7 +11,8 @@ class Settings:
     def __init__(self):
         self.width = 28
         self.height = 28
-        self.rect_len = 15
+        #Change !
+        self.rect_len = 30
 
 class Snake:
     def __init__(self):
@@ -32,7 +33,7 @@ class Snake:
         self.initialize()
 
     def initialize(self):
-        self.position = [6, 6]
+        self.position = [15,15]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
 
@@ -104,7 +105,7 @@ class Strawberry():
         screen.blit(self.image, [p * self.settings.rect_len for p in self.position])
    
     def initialize(self):
-        self.position = [15, 10]
+        self.position = [15, 15]
       
         
 class Game:
@@ -157,10 +158,13 @@ class Game:
 
         self.snake.update()
         
-        if self.snake.position == self.strawberry.position:
+        if self.snake.position == self.strawberry.position and self.strawberry.image!="images/food4.bmp":
             self.strawberry.random_pos(self.snake)
             reward = 1
-            self.snake.score += 1
+            #Change 2
+            self.snake.score += 10
+        
+
         else:
             self.snake.segments.pop()
             reward = 0
@@ -184,5 +188,6 @@ class Game:
     def blit_score(self, color, screen):
         font = pygame.font.SysFont(None, 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)
-        screen.blit(text, (0, 0))
+        #cnagw
+        screen.blit(text, (400, 10))
 

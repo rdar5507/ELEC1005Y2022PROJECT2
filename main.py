@@ -4,7 +4,7 @@ Created on Wed May 16 15:22:20 2018
 
 @author: zou
 """
-
+import numpy as np
 import pygame
 import time
 from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
@@ -14,7 +14,6 @@ from game import Game
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
-
 green = pygame.Color(0, 200, 0)
 bright_green = pygame.Color(0, 255, 0)
 red = pygame.Color(200, 0, 0)
@@ -23,16 +22,19 @@ blue = pygame.Color(32, 178, 170)
 bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
-
+count=0
 game = Game()
 rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
 fpsClock = pygame.time.Clock()
-screen = pygame.display.set_mode((game.settings.width * 15, game.settings.height * 15))
-pygame.display.set_caption('Gluttonous')
-
+#Change 1
+screen = pygame.display.set_mode((game.settings.width * 30, game.settings.height * 30))
+pygame.display.set_caption('GLUTTONOUS')
+#change
+home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
+game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
 
 
 def text_objects(text, font, color=black):
@@ -40,8 +42,8 @@ def text_objects(text, font, color=black):
     return text_surface, text_surface.get_rect()
 
 
-def message_display(text, x, y, color=black):
-    large_text = pygame.font.SysFont('comicsansms', 50)
+def message_display(text, x, y, color,font_size):
+    large_text = pygame.font.SysFont('Corbel', font_size)
     text_surf, text_rect = text_objects(text, large_text, color)
     text_rect.center = (x, y)
     screen.blit(text_surf, text_rect)
@@ -61,7 +63,7 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     else:
         pygame.draw.rect(screen, inactive_color, (x, y, w, h))
 
-    smallText = pygame.font.SysFont('comicsansms', 20)
+    smallText = pygame.font.SysFont('Corbel', 30)
     TextSurf, TextRect = text_objects(msg, smallText)
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
@@ -71,48 +73,76 @@ def quitgame():
     pygame.quit()
     quit()
 
-
+#change
 def crash():
     pygame.mixer.Sound.play(crash_sound)
-    message_display('crashed', game.settings.width / 2 * 15, game.settings.height / 3 * 15, white)
-    time.sleep(1)
+    pygame.mixer.Sound.stop(game_sound)
+    message_display('GAME OVER !', game.settings.width / 2 * 30, game.settings.height / 3 * 30, black ,50)
+    message_display(f'Your Score: {game.snake.score}', game.settings.width / 2 * 30, game.settings.height / 3 * 45, black, 50)
+    time.sleep(3)
+    pygame.mixer.Sound.play(home_sound)
+    count=0
 
+def how_to_play():
+    screen.fill(black)
+
+    message_display('The game is Simple:', game.settings.width / 2 *30, game.settings.height / 3 * 15, white, 20)
+    message_display('Moving the Snake: Move the Snake with the arrow keys on the keyboard', game.settings.width / 2 * 30, game.settings.height / 3 * 25, white, 20)
+    message_display('What to do?: Try to feed the snake as much food as possible, the snake will keep on increasing in length', game.settings.width / 2 * 30, game.settings.height / 3 * 35, white, 20)
+    message_display('GOAL: Keep going as long as possible and avpid hitting the walls or the snake itself', game.settings.width / 2 * 30, game.settings.height / 3 * 45, white, 20)
+    message_display('ALL THE BEST !!!', game.settings.width / 2 * 30, game.settings.height / 3 * 55, white, 40)
+    time.sleep(5)
+    count=1
+    initial_interface()
 
 def initial_interface():
     intro = True
+    
+    if count==0:
+        pygame.mixer.Sound.play(home_sound)
     while intro:
+        
 
-        for event in pygame.event.get():
+        for event in pygame.event.get() :
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        screen.fill(white)
-        message_display('Gluttonous', game.settings.width / 2 * 15, game.settings.height / 4 * 15)
+        screen.fill(green)
+        #change
+        message_display('GLUTTONOUS', game.settings.width / 2 * 30, game.settings.height / 4 * 30, white, 50)
 
-        button('Go!', 80, 240, 80, 40, green, bright_green, game_loop, 'human')
-        button('Quit', 270, 240, 80, 40, red, bright_red, quitgame)
+        #change
+        button('Start Game !', 160, 480, 180, 80, blue, bright_blue, game_loop, 'human')
+        button('Leave Game !', 540, 480, 180, 80, red, bright_red, quitgame)
+
+        button('How to Play?', 335, 625, 200, 80, yellow, bright_yellow, how_to_play)
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
 
-def game_loop(player, fps=10):
+def game_loop(player, fps=7):
     game.restart_game()
+    pygame.mixer.Sound.stop(home_sound)
+    pygame.mixer.Sound.play(game_sound)
 
     while not game.game_end():
+        
+
 
         pygame.event.pump()
 
         move = human_move()
-        fps = 5
+        #change
+        fps = 7
 
         game.do_move(move)
 
-        screen.fill(black)
+        screen.fill(yellow)
 
         game.snake.blit(rect_len, screen)
         game.strawberry.blit(screen)
-        game.blit_score(white, screen)
+        game.blit_score(black, screen)
 
         pygame.display.flip()
 

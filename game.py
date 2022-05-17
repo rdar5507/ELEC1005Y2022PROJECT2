@@ -172,7 +172,7 @@ class Game:
             #Change 2: the score is set to increase by 10 each time the snake eats the berry
             self.snake.score += 10
             #change 3: reward is set to random integer between 2 and 5
-            #        : adds reward to snake score if the true score is multiple of 100(or 10 berries are eaten)
+            #        : adds reward to snake score if the true score is multiple of 100(or 10 berries are)
             true_score = self.snake.score - self.snake.reward
             if true_score % 100 == 0: 
                 self.snake.score += reward
@@ -202,9 +202,9 @@ class Game:
     def blit_score(self, color, screen):
         #shows the score(text) on the screen with the corbel font and 25 size.
         font = pygame.font.SysFont("Corbel", 25)
-        #change 3: the font form None to Corbel
+        #change 4: the font form None to Corbel
         text = font.render('Score: ' + str(self.snake.score), True, color)
-        #Change 4: location of score is changed from (0,0) to(400,10)  
+        #Change 5: location of score is changed from (0,0) to(400,10)  
         screen.blit(text, (400,10))
 
 

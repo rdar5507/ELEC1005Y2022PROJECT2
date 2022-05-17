@@ -198,7 +198,7 @@ class Game:
         font = pygame.font.SysFont("Corbel", 25)
         #change 3: the font form None to Corbel
         text = font.render('Score: ' + str(self.snake.score), True, color)
-        #Change 4:  
+        #Change 4: move the location of the score form (0,0) to (400,10)
         screen.blit(text, (400, 10))
 
 

@@ -30,7 +30,7 @@ class Snake:
             
         self.image_body = pygame.image.load('images/body.bmp')
         # the game starts with snake facing right
-        self.randint = 0
+        self.reward = 0
         self.facing = "right"
         self.initialize()
 
@@ -39,7 +39,7 @@ class Snake:
         self.position = [15,15]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
-        self.randint = 0
+        self.reward = 0
     #defines how each part of the snake's body is displayed
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
@@ -168,14 +168,15 @@ class Game:
         
         if self.snake.position == self.strawberry.position and self.strawberry.image!="images/food4.bmp":
             self.strawberry.random_pos(self.snake)
-            reward = 1
+            reward = random.randint(2,4)
             #Change 2: the score is set to increase by 10 each time the snake eats the berry
             self.snake.score += 10
-            score = self.snake.score - self.snake.randint
-            if score % 100 == 0: 
-                x = random.randint(2,4)
-                self.snake.score += x
-                self.snake.randint += x 
+            #change 3: reward is set to random integer between 2 and 5
+            #        : adds reward to snake score if the true score is multiple of 100(or 10 berries are eaten)
+            true_score = self.snake.score - self.snake.reward
+            if true_score % 100 == 0: 
+                self.snake.score += reward
+                self.snake.reward += reward 
         else:
 
             self.snake.segments.pop()

@@ -6,7 +6,7 @@ Created on Wed Apr 25 15:19:25 2018
 """
 import pygame, random
 import numpy as np
-
+ 
 class Settings:
     def __init__(self):
         #the width and height of the game has been set 
@@ -30,6 +30,7 @@ class Snake:
             
         self.image_body = pygame.image.load('images/body.bmp')
         # the game starts with snake facing right
+        self.randint = 0
         self.facing = "right"
         self.initialize()
 
@@ -38,6 +39,7 @@ class Snake:
         self.position = [15,15]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
+        self.randint = 0
     #defines how each part of the snake's body is displayed
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
@@ -169,8 +171,11 @@ class Game:
             reward = 1
             #Change 2: the score is set to increase by 10 each time the snake eats the berry
             self.snake.score += 10
-        
-
+            score = self.snake.score - self.snake.randint
+            if score % 100 == 0: 
+                x = random.randint(2,4)
+                self.snake.score += x
+                self.snake.randint += x 
         else:
 
             self.snake.segments.pop()

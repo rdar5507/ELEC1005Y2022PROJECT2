@@ -127,18 +127,12 @@ def game_loop(player, fps=7):
     pygame.mixer.Sound.play(game_sound)
 
     while not game.game_end():
-        if game.snake.score > 100: 
-            fps = 8
-        elif game.snake.score > 300:
-            fps = 9
-        elif game.snake.score > 500:
-            fps = 10
 
         pygame.event.pump()
 
         move = human_move()
         #change
-        #fps = 7
+        fps = 7
 
         game.do_move(move)
 

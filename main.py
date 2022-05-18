@@ -103,7 +103,8 @@ def crash():
     pygame.mixer.Sound.play(home_sound)
 
 # This Function is for the How TO play manual
-
+#Change 6 - Made a whole new fucntion to display the manual to the game 
+#The message stays on for 5 seconds and automatically goes off.
 def how_to_play():
     screen.fill(black)
     global count1

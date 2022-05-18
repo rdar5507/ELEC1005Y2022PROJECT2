@@ -152,6 +152,7 @@ class Game:
         
     def do_move(self, move):
         #schanges facing of snake based on the direction the user has inputed
+        eating_sound = pygame.mixer.Sound('./sound/eating.mp3')
         move_dict = self.move_dict
         change_direction = move_dict[move]
         
@@ -167,6 +168,7 @@ class Game:
         self.snake.update()
         
         if self.snake.position == self.strawberry.position and self.strawberry.image!="images/food4.bmp":
+            pygame.mixer.Sound.play(eating_sound)
             self.strawberry.random_pos(self.snake)
             reward = random.randint(2,4)
             #Change 2: the score is set to increase by 10 each time the snake eats the berry

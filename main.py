@@ -136,7 +136,8 @@ def initial_interface():
 
         
         #change
-        message_display('GLUTTONOUS', game.settings.width / 2 * 30, game.settings.height / 4 * 30, white, 50)
+        message_display('GLUTTONOUS', game.settings.width / 2 * 30, game.settings.height / 4 * 30, black, 70)
+        message_display('The Snake Game', game.settings.width / 2 * 30, game.settings.height / 4 * 45, black, 25)
 
         #change
         button('Start Game !', 160, 480, 180, 80, blue, bright_blue, game_loop, 'human')

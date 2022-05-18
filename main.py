@@ -97,7 +97,7 @@ def crash():
     pygame.mixer.Sound.play(sad_sound)
     #Change 5 - Changed the crash page and displayed the score as well with the Crash Message.
     screen.fill(black)
-    message_display('GAME OVER !', game.settings.width / 2 * 30, game.settings.height / 3 * 30, white ,50)
+    message_display('GAME OVER :(', game.settings.width / 2 * 30, game.settings.height / 3 * 30, white ,50)
     message_display(f'Your Score: {game.snake.score}', game.settings.width / 2 * 30, game.settings.height / 3 * 45, white, 50)
     time.sleep(3)
     pygame.mixer.Sound.play(home_sound)

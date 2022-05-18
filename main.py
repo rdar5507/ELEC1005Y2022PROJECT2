@@ -117,7 +117,8 @@ def how_to_play():
     message_display('Moving the Snake: Move the Snake with the arrow keys on the keyboard', game.settings.width / 2 * 30, game.settings.height / 3 * 25, white, 20)
     message_display('What to do?: Try to feed the snake as much food as possible, the snake will keep on increasing in length', game.settings.width / 2 * 30, game.settings.height / 3 * 35, white, 20)
     message_display('GOAL: Keep going as long as possible and avoid hitting the walls or the snake itself', game.settings.width / 2 * 30, game.settings.height / 3 * 45, white, 20)
-    message_display('ALL THE BEST !!!', game.settings.width / 2 * 30, game.settings.height / 3 * 55, white, 40)
+    message_display('WARNING : The snake keeps on getting faster as you go on. SO LOOK OUT!!', game.settings.width / 2 * 30, game.settings.height / 3 * 50, white, 20)
+    message_display('ALL THE BEST !!!', game.settings.width / 2 * 30, game.settings.height / 3 * 60, white, 45)
     time.sleep(5)
     
     initial_interface()

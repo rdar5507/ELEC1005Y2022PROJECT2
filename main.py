@@ -38,7 +38,7 @@ fpsClock = pygame.time.Clock()
 #Change 1 - Changed the Dimensions of the Screen.
 screen = pygame.display.set_mode((game.settings.width * 30, game.settings.height * 30))
 pygame.display.set_caption('GLUTTONOUS')
-#change
+#Change 2 - Added various sounds for more fun and user participation
 home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 game_sound = pygame.mixer.Sound('./sound/gametune.mp3')

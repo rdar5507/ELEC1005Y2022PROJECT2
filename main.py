@@ -71,9 +71,9 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
 
 def quitgame():
     pygame.quit()
-    quit()
+    quit()      
 
-#change
+#change 
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     pygame.mixer.Sound.stop(game_sound)
@@ -132,13 +132,6 @@ def game_loop(player, fps=5):
         pygame.event.pump()
 
         move = human_move()
-        #change : fps changes depending on the user's score making the game harder
-        if game.snake.score >= 200 and game.snake.score < 400:
-            fps = 10
-        elif game.snake.score >= 400 and game.snake.score < 600:
-            fps = 15
-        elif game.snake.score >= 600:
-            fps = 20
 
         game.do_move(move)
 

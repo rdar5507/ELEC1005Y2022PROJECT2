@@ -9,14 +9,11 @@ import random
 import numpy as np
 
 
-
-
-
 class Settings:
     def __init__(self):
         self.width = 28
         self.height = 28
-        #Change !
+        #Change 1: 
         self.rect_len = 30
 
 class Snake:
@@ -34,7 +31,7 @@ class Snake:
         self.tail_right = pygame.image.load('images/tail_right.bmp')
             
         self.image_body = pygame.image.load('images/body.bmp')
-
+        self.reward = 0 
         self.facing = "right"
         self.initialize()
 
@@ -42,6 +39,7 @@ class Snake:
         self.position = [15,15]
         self.segments = [[6 - i, 6] for i in range(3)]
         self.score = 0
+        self.reward = 0 
 
     def blit_body(self, x, y, screen):
         screen.blit(self.image_body, (x, y))
@@ -169,10 +167,13 @@ class Game:
         if self.snake.position == self.strawberry.position:
             self.strawberry.random_pos(self.snake)
             pygame.mixer.Sound.play(eating_sound)
-            reward = 1
+            reward = random.randint(2,4)
             #Change 2
             self.snake.score += 10
-        
+            true_score = self.snake.score - self.snake.reward
+            if true_score % 100 == 0:
+                self.snake.score +=  reward
+                self.snake.reward += reward
 
         else:
             self.snake.segments.pop()
@@ -195,7 +196,7 @@ class Game:
         return end
     
     def blit_score(self, color, screen):
-        font = pygame.font.SysFont(None, 25)
+        font = pygame.font.SysFont("Corbel", 25)
         text = font.render('Score: ' + str(self.snake.score), True, color)
         #cnagw
         screen.blit(text, (400, 10))

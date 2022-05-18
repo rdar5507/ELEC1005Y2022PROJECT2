@@ -42,11 +42,11 @@ fpsClock = pygame.time.Clock()
 screen = pygame.display.set_mode((game.settings.width * 30, game.settings.height * 30))
 pygame.display.set_caption('GLUTTONOUS')
 #Change 2 - Added various sounds for more fun and user participation
-home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
+home_sound = pygame.mixer.Sound('./sound/homesound.wav')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
-game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
-eating_sound = pygame.mixer.Sound('./sound/eating.mp3')
-sad_sound = pygame.mixer.Sound('./sound/sadsound.mp3')
+game_sound = pygame.mixer.Sound('./sound/gametune.wav')
+eating_sound = pygame.mixer.Sound('./sound/eating.wav')
+sad_sound = pygame.mixer.Sound('./sound/sadsound.wav')
 
 # Text Rendering Function
 

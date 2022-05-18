@@ -165,8 +165,10 @@ def game_loop(player, fps = 5):
     pygame.mixer.Sound.play(game_sound)
     # Chnage 9 - The Fps of the game increases with the increase of the score making it harder and harder.
     while not game.game_end():
-        if game.snake.score >= 100 and game.snake.score < 150:
-            fps = 7
+        if game.snake.score >= 50 and game.snake.score < 100:
+            fps=7
+        elif game.snake.score >= 100 and game.snake.score < 150:
+            fps = 9
         elif game.snake.score >= 150 and game.snake.score < 200:
             fps = 10
         elif game.snake.score >= 200 and game.snake.score < 250:

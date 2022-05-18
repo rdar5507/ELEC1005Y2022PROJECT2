@@ -35,7 +35,7 @@ rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
 fpsClock = pygame.time.Clock()
-#Change 1
+#Change 1 - Changed the Dimensions of the Screen.
 screen = pygame.display.set_mode((game.settings.width * 30, game.settings.height * 30))
 pygame.display.set_caption('GLUTTONOUS')
 #change

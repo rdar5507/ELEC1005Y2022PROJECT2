@@ -4,6 +4,7 @@ Created on Wed May 16 15:22:20 2018
 
 @author: zou
 """
+from email.mime import image
 import numpy as np
 import pygame
 import time
@@ -22,7 +23,8 @@ blue = pygame.Color(32, 178, 170)
 bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
-count=0
+image1=pygame.image.load('./images/forest.jpg')
+count1=0
 game = Game()
 rect_len = game.settings.rect_len
 snake = game.snake
@@ -35,6 +37,7 @@ pygame.display.set_caption('GLUTTONOUS')
 home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
+eating_sound = pygame.mixer.Sound('./sound/eating.mp3')
 
 
 def text_objects(text, font, color=black):
@@ -81,25 +84,30 @@ def crash():
     message_display(f'Your Score: {game.snake.score}', game.settings.width / 2 * 30, game.settings.height / 3 * 45, black, 50)
     time.sleep(3)
     pygame.mixer.Sound.play(home_sound)
-    count=0
 
 def how_to_play():
     screen.fill(black)
+    global count1
+    count1=1
 
     message_display('The game is Simple:', game.settings.width / 2 *30, game.settings.height / 3 * 15, white, 20)
     message_display('Moving the Snake: Move the Snake with the arrow keys on the keyboard', game.settings.width / 2 * 30, game.settings.height / 3 * 25, white, 20)
     message_display('What to do?: Try to feed the snake as much food as possible, the snake will keep on increasing in length', game.settings.width / 2 * 30, game.settings.height / 3 * 35, white, 20)
-    message_display('GOAL: Keep going as long as possible and avpid hitting the walls or the snake itself', game.settings.width / 2 * 30, game.settings.height / 3 * 45, white, 20)
+    message_display('GOAL: Keep going as long as possible and avoid hitting the walls or the snake itself', game.settings.width / 2 * 30, game.settings.height / 3 * 45, white, 20)
     message_display('ALL THE BEST !!!', game.settings.width / 2 * 30, game.settings.height / 3 * 55, white, 40)
     time.sleep(5)
-    count=1
+    
     initial_interface()
+
+    
 
 def initial_interface():
     intro = True
-    
-    if count==0:
+    screen.fill(black)
+    if count1==0:
         pygame.mixer.Sound.play(home_sound)
+    else:
+        pass
     while intro:
         
 
@@ -107,7 +115,7 @@ def initial_interface():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        screen.fill(green)
+        
         #change
         message_display('GLUTTONOUS', game.settings.width / 2 * 30, game.settings.height / 4 * 30, white, 50)
 
@@ -126,25 +134,31 @@ def game_loop(player, fps=5):
     game.restart_game()
     pygame.mixer.Sound.stop(home_sound)
     pygame.mixer.Sound.play(game_sound)
+    
 
     while not game.game_end():
+        
+
 
         pygame.event.pump()
 
         move = human_move()
 
         game.do_move(move)
+        #screen.blit(image1, (0, 0))
 
         screen.fill(yellow)
 
         game.snake.blit(rect_len, screen)
         game.strawberry.blit(screen)
-        game.blit_score(black, screen) 
+        game.blit_score(black, screen)
+
         pygame.display.flip()
 
         fpsClock.tick(fps)
 
     crash()
+    initial_interface()
 
 
 def human_move():

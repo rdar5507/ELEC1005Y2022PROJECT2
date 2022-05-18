@@ -35,10 +35,10 @@ rect_len = game.settings.rect_len
 snake = game.snake
 pygame.init()
 fpsClock = pygame.time.Clock()
-#Change 1
+#Change 1 - Changed the Dimensions of the Screen.
 screen = pygame.display.set_mode((game.settings.width * 30, game.settings.height * 30))
 pygame.display.set_caption('GLUTTONOUS')
-#change
+#Change 2 - Added various sounds for more fun and user participation
 home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
@@ -55,6 +55,7 @@ def text_objects(text, font, color=black):
 # Message Display Function 
 
 def message_display(text, x, y, color,font_size):
+    #Change 3 - Changed all font styles to Corbel as it looks better
     large_text = pygame.font.SysFont('Corbel', font_size)
     text_surf, text_rect = text_objects(text, large_text, color)
     text_rect.center = (x, y)
@@ -90,9 +91,12 @@ def quitgame():
 # This Function mentions what happens when the snake Crashes
 
 def crash():
+    #Change 4 - Added new Sounds and stopped the gameplay sound to make it more fun
     pygame.mixer.Sound.play(crash_sound)
     pygame.mixer.Sound.stop(game_sound)
     pygame.mixer.Sound.play(sad_sound)
+    #Change 5 - Changed the crash page and displayed the score as well with the Crash Message.
+    screen.fill(red)
     message_display('GAME OVER !', game.settings.width / 2 * 30, game.settings.height / 3 * 30, black ,50)
     message_display(f'Your Score: {game.snake.score}', game.settings.width / 2 * 30, game.settings.height / 3 * 45, black, 50)
     time.sleep(3)

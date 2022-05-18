@@ -124,6 +124,7 @@ def how_to_play():
 def initial_interface():
     intro = True
     screen.fill(black)
+    # Did this so that if this function is called again the music should not be played again and again 
     if count1==0:
         pygame.mixer.Sound.play(home_sound)
     else:
@@ -136,14 +137,14 @@ def initial_interface():
                 pygame.quit()
 
         
-        #change
+        #Change 7- Changed the message according to the screen size and also incresed the font size and changed color.
+        #Also added a new Message 
         message_display('GLUTTONOUS', game.settings.width / 2 * 30, game.settings.height / 4 * 30, black, 70)
         message_display('The Snake Game', game.settings.width / 2 * 30, game.settings.height / 4 * 45, black, 25)
 
-        #change
+        # Change 8- Changed the buttons a little bit and also added a new button to see the manual of the game
         button('Start Game !', 160, 480, 180, 80, blue, bright_blue, game_loop, 'human')
         button('Leave Game !', 540, 480, 180, 80, red, bright_red, quitgame)
-
         button('How to Play?', 335, 625, 200, 80, yellow, bright_yellow, how_to_play)
 
         pygame.display.update()

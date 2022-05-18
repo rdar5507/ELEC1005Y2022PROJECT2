@@ -153,11 +153,11 @@ def initial_interface():
 # Loop and Functions running the game are in the function below
 
 def game_loop(player, fps = 5):
-    
+    # Changing the Music when the screen changes
     game.restart_game()
     pygame.mixer.Sound.stop(home_sound)
     pygame.mixer.Sound.play(game_sound)
-
+    # Chnage 9 - The Fps of the game increases with the increase of the score making it harder and harder.
     while not game.game_end():
         if game.snake.score >= 100 and game.snake.score < 150:
             fps = 10

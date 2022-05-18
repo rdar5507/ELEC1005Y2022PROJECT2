@@ -145,21 +145,19 @@ def initial_interface():
 
 # Loop and Functions running the game are in the function below
 
-def game_loop(player, fps=5):
+def game_loop(player, fps = 5):
+    
     game.restart_game()
     pygame.mixer.Sound.stop(home_sound)
     pygame.mixer.Sound.play(game_sound)
-    if game.snake.score >=200 and game.snake.score < 400:
-        fps = 10
-    elif game.snake.score >=400 and game.snake.score < 600:
-        fps = 15
-    elif game.snake.score > 600: 
-        fps = 20
 
     while not game.game_end():
-        
-
-
+        if game.snake.score >= 100 and game.snake.score < 150:
+            fps = 10
+        elif game.snake.score >= 150 and game.snake.score < 200:
+            fps = 15
+        elif game.snake.score >= 200:
+            fps = 20 
         pygame.event.pump()
 
         move = human_move()

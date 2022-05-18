@@ -35,6 +35,7 @@ pygame.display.set_caption('GLUTTONOUS')
 home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
+eating_sound = pygame.mixer.Sound('./sound/eating.mp3')
 
 
 def text_objects(text, font, color=black):

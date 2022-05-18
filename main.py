@@ -37,6 +37,7 @@ home_sound = pygame.mixer.Sound('./sound/homesound.mp3')
 crash_sound = pygame.mixer.Sound('./sound/crash.wav')
 game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
 eating_sound = pygame.mixer.Sound('./sound/eating.mp3')
+sad_sound = pygame.mixer.Sound('./sound/sadsound.mp3')
 
 
 def text_objects(text, font, color=black):
@@ -79,6 +80,7 @@ def quitgame():
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     pygame.mixer.Sound.stop(game_sound)
+    pygame.mixer.Sound.play(sad_sound)
     message_display('GAME OVER !', game.settings.width / 2 * 30, game.settings.height / 3 * 30, black ,50)
     message_display(f'Your Score: {game.snake.score}', game.settings.width / 2 * 30, game.settings.height / 3 * 45, black, 50)
     time.sleep(3)

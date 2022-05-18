@@ -4,6 +4,8 @@ Created on Wed May 16 15:22:20 2018
 
 @author: zou
 """
+# All the necessary Modules have been added here
+
 from email.mime import image
 import numpy as np
 import pygame
@@ -11,7 +13,11 @@ import time
 from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
 from pygame.locals import QUIT
 
+#The second code required to run the game has been imported here
+
 from game import Game
+
+#All the colors and the sounds have been initialised here as Global variables so that they can be accessed anywhere
 
 black = pygame.Color(0, 0, 0)
 white = pygame.Color(255, 255, 255)
@@ -39,11 +45,14 @@ game_sound = pygame.mixer.Sound('./sound/gametune.mp3')
 eating_sound = pygame.mixer.Sound('./sound/eating.mp3')
 sad_sound = pygame.mixer.Sound('./sound/sadsound.mp3')
 
+# Text Rendering Function
 
 def text_objects(text, font, color=black):
     text_surface = font.render(text, True, color)
     return text_surface, text_surface.get_rect()
 
+
+# Message Display Function 
 
 def message_display(text, x, y, color,font_size):
     large_text = pygame.font.SysFont('Corbel', font_size)
@@ -52,6 +61,7 @@ def message_display(text, x, y, color,font_size):
     screen.blit(text_surf, text_rect)
     pygame.display.update()
 
+# Message that renders the buttons on the screen
 
 def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter=None):
     mouse = pygame.mouse.get_pos()
@@ -71,12 +81,14 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
     TextRect.center = (x + (w / 2), y + (h / 2))
     screen.blit(TextSurf, TextRect)
 
+# Initialises the quiting procedure
 
 def quitgame():
     pygame.quit()
     quit()
 
-#change
+# This Function mentions what happens when the snake Crashes
+
 def crash():
     pygame.mixer.Sound.play(crash_sound)
     pygame.mixer.Sound.stop(game_sound)
@@ -85,6 +97,8 @@ def crash():
     message_display(f'Your Score: {game.snake.score}', game.settings.width / 2 * 30, game.settings.height / 3 * 45, black, 50)
     time.sleep(3)
     pygame.mixer.Sound.play(home_sound)
+
+# This Function is for the How TO play manual
 
 def how_to_play():
     screen.fill(black)
@@ -100,7 +114,7 @@ def how_to_play():
     
     initial_interface()
 
-    
+# This function sets up the initial home page
 
 def initial_interface():
     intro = True
@@ -129,6 +143,7 @@ def initial_interface():
         pygame.display.update()
         pygame.time.Clock().tick(15)
 
+# Loop and Functions running the game are in the function below
 
 def game_loop(player, fps=5):
     game.restart_game()
@@ -167,6 +182,7 @@ def game_loop(player, fps=5):
     crash()
     initial_interface()
 
+#This Function sets up the Movement criterias
 
 def human_move():
     direction = snake.facing

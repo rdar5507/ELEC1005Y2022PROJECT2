@@ -55,6 +55,7 @@ def text_objects(text, font, color=black):
 # Message Display Function 
 
 def message_display(text, x, y, color,font_size):
+    #Change 3 - Changed all font styles to Corbel as it looks better
     large_text = pygame.font.SysFont('Corbel', font_size)
     text_surf, text_rect = text_objects(text, large_text, color)
     text_rect.center = (x, y)

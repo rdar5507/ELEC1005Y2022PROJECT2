@@ -29,6 +29,9 @@ blue = pygame.Color(32, 178, 170)
 bright_blue = pygame.Color(32, 200, 200)
 yellow = pygame.Color(255, 205, 0)
 bright_yellow = pygame.Color(255, 255, 0)
+#Change 10- Added Images to the initial Page
+image1 = pygame.image.load('./images/snake1.jpg')
+image2 = pygame.image.load('./images/snake2.jpg')
 count1=0
 game = Game()
 rect_len = game.settings.rect_len
@@ -123,7 +126,10 @@ def how_to_play():
 
 def initial_interface():
     intro = True
-    screen.fill(black)
+    screen.fill(white)
+    #Added Images
+    screen.blit(image1,(0,0))
+    screen.blit(image2,(game.settings.width / 2 * 27, game.settings.height / 4 * 30))
     # Did this so that if this function is called again the music should not be played again and again 
     if count1==0:
         pygame.mixer.Sound.play(home_sound)

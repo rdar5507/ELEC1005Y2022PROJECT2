@@ -121,7 +121,8 @@ def initial_interface():
         pygame.time.Clock().tick(15)
 
 
-def game_loop(player, fps=7):
+def game_loop(player, fps=5):
+    #change : fps intitally set to 5
     game.restart_game()
     pygame.mixer.Sound.stop(home_sound)
     pygame.mixer.Sound.play(game_sound)
@@ -131,8 +132,13 @@ def game_loop(player, fps=7):
         pygame.event.pump()
 
         move = human_move()
-        #change
-        fps = 7
+        #change : fps changes depending on the user's score making the game harder
+        if game.snake.score >= 200 and game.snake.score < 400:
+            fps = 10
+        elif game.snake.score >= 400 and game.snake.score < 600:
+            fps = 15
+        elif game.snake.score >= 600:
+            fps = 20
 
         game.do_move(move)
 

@@ -166,11 +166,13 @@ def game_loop(player, fps = 5):
     # Chnage 9 - The Fps of the game increases with the increase of the score making it harder and harder.
     while not game.game_end():
         if game.snake.score >= 100 and game.snake.score < 150:
-            fps = 10
+            fps = 7
         elif game.snake.score >= 150 and game.snake.score < 200:
+            fps = 10
+        elif game.snake.score >= 200 and game.snake.score < 250:
             fps = 15
-        elif game.snake.score >= 200:
-            fps = 20 
+        elif game.snake.score >= 250:
+            fps = 20
         pygame.event.pump()
 
         move = human_move()

@@ -106,7 +106,7 @@ def crash():
     pygame.mixer.Sound.play(home_sound)
 
 # This Function is for the How TO play manual
-#Change 6 - Made a whole new fucntion to display the manual to the game 
+#Change 6 - Made a whole new function to display the manual to the game 
 #The message stays on for 5 seconds and automatically goes off.
 def how_to_play():
     screen.fill(black)
@@ -164,7 +164,7 @@ def game_loop(player, fps = 5):
     game.restart_game()
     pygame.mixer.Sound.stop(home_sound)
     pygame.mixer.Sound.play(game_sound)
-    # Chnage 9 - The Fps of the game increases with the increase of the score making it harder and harder.
+    # Change 9 - The Fps of the game increases with the increase of the score making it harder and harder.
     while not game.game_end():
         if game.snake.score >= 50 and game.snake.score < 100:
             fps=7

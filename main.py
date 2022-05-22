@@ -179,6 +179,7 @@ def game_loop(player, fps = 5):
         pygame.event.pump()
 
         move = human_move()
+        #change
         
 
         game.do_move(move)

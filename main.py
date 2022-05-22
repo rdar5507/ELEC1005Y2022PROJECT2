@@ -48,6 +48,9 @@ game_sound = pygame.mixer.Sound('./sound/gametune.wav')
 eating_sound = pygame.mixer.Sound('./sound/eating.wav')
 sad_sound = pygame.mixer.Sound('./sound/sadsound.wav')
 
+#Variable for storing the scores 
+scores = []
+
 # Text Rendering Function
 
 def text_objects(text, font, color=black):
@@ -123,6 +126,40 @@ def how_to_play():
     
     initial_interface()
 
+    
+#The following function is for the Scores Tab.
+#This function displays all the scores made in the runs and also Shows the Highscore on the top.
+def high_scores():
+    screen.fill(black)
+    global count1
+    global scores
+    count1=1
+    height =28
+    width=28
+    multi=20
+    highest=0
+    if len(scores)==0:
+         message_display("You have not played the Game yet. Please play to see the high scores." , width / 2 *30, height / 3 * 30, white, 30)
+    
+    else:
+        message_display("The following are the scores that you have to achieved in this run: " , width / 2 *30, height / 3 * 15, white, 20)
+        i=0
+        while i<len(scores):
+            message_display(f"Run {i+1}: {scores[i]}" , width / 2 *30, height / 3 * multi, white, 20)
+            multi+=5
+            
+            if scores[i]>highest:
+                highest=scores[i]
+            i+=1
+        
+        message_display(f"The highest score in this run : {highest}" , width / 2 *30, height / 3 * 10, yellow, 20)
+
+
+
+    time.sleep(5)
+
+    initial_interface()
+
 # This function sets up the initial home page
 
 def initial_interface():
@@ -150,9 +187,10 @@ def initial_interface():
         message_display('The Snake Game', game.settings.width / 2 * 30, game.settings.height / 4 * 45, black, 25)
 
         # Change 8- Changed the buttons a little bit and also added a new button to see the manual of the game
-        button('Start Game !', 160, 480, 180, 80, blue, bright_blue, game_loop, 'human')
+        button('Start Game !', 160, 480, 180, 80, green, bright_green, game_loop, 'human')
         button('Leave Game !', 540, 480, 180, 80, red, bright_red, quitgame)
-        button('How to Play?', 335, 625, 200, 80, yellow, bright_yellow, how_to_play)
+        button('How to Play?', 530, 625, 200, 80, yellow, bright_yellow, how_to_play)
+        button('Scores', 150, 625, 200, 80, blue, bright_blue, high_scores)
 
         pygame.display.update()
         pygame.time.Clock().tick(15)
@@ -193,7 +231,7 @@ def game_loop(player, fps = 5):
         pygame.display.flip()
 
         fpsClock.tick(fps)
-
+    scores.append(game.snake.score)
     crash()
     initial_interface()
 

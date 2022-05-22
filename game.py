@@ -132,8 +132,9 @@ class Game:
     def restart_game(self):
         self.snake.initialize()
         self.strawberry.initialize()
-    '''
-    def current_state(self):         
+    
+    def current_state(self):  
+        #this function is not called or used in main.py or game.py so no changes were made
         state = np.zeros((self.settings.width+2, self.settings.height+2, 2))
         expand = [[0, 1], [0, -1], [-1, 0], [1, 0], [0, 2], [0, -2], [-2, 0], [2, 0]]
         
@@ -145,7 +146,7 @@ class Game:
         state[self.strawberry.position[1], self.strawberry.position[0], 1] = 0.5
         for d in expand:
             state[self.strawberry.position[1]+d[0], self.strawberry.position[0]+d[1], 1] = 0.5
-        return state''' 
+        return state
         
     #converts the key stroke to direction which can be found in move_dict
     def direction_to_int(self, direction):

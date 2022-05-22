@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed May 16 15:22:20 2018
-
 @author: zou
 """
 # All the necessary Modules have been added here
@@ -12,7 +11,7 @@ import pygame
 import time
 from pygame.locals import KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE
 from pygame.locals import QUIT
-
+import sys
 #The second code required to run the game has been imported here
 
 from game import Game
@@ -92,7 +91,7 @@ def button(msg, x, y, w, h, inactive_color, active_color, action=None, parameter
 
 def quitgame():
     pygame.quit()
-    quit()
+    sys.exit()
 
 # This Function mentions what happens when the snake Crashes
 
@@ -217,7 +216,6 @@ def game_loop(player, fps = 5):
         pygame.event.pump()
 
         move = human_move()
-        #change
         
 
         game.do_move(move)
@@ -263,3 +261,4 @@ def human_move():
 
 if __name__ == "__main__":
     initial_interface()
+
